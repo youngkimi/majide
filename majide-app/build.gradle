@@ -1,0 +1,45 @@
+plugins {
+    id "org.springframework.boot" version "3.3.3"
+    id "io.spring.dependency-management" version "1.1.6"
+    id "java"
+}
+
+group = "net.majide"
+version = "0.0.1-SNAPSHOT"
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+dependencies {
+    // majide 라이브러리들
+    implementation project(':majide-bootstrap')
+    implementation project(":majide-integration-spring")
+
+    // Spring
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation "org.springframework:spring-tx:6.1.12"
+    implementation "org.springframework.boot:spring-boot-starter-aop"      // 선택
+    implementation "org.springframework.boot:spring-boot-starter-validation" // 선택
+
+    // Cron 계산 (integration에서 구현체를 쓰거나, 앱에서 직접 bean으로 써도 됨)
+    implementation "com.cronutils:cron-utils:9.2.1"
+
+    // DB & 마이그레이션
+    runtimeOnly "com.oracle.database.jdbc:ojdbc11:23.3.0.23.09"
+    implementation "org.flywaydb:flyway-core:10.17.0"
+    implementation "org.flywaydb:flyway-database-oracle:10.17.0"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation 'org.testcontainers:testcontainers:1.20.2'
+    testImplementation 'org.testcontainers:junit-jupiter:1.20.2'   // ← 추가
+    testImplementation 'org.testcontainers:oracle-xe:1.20.2'
+    testImplementation "org.flywaydb:flyway-core:10.17.0"
+    testImplementation "org.flywaydb:flyway-database-oracle:10.17.0"
+    testImplementation "com.zaxxer:HikariCP:5.1.0"
+    testImplementation "org.awaitility:awaitility:4.2.0"
+}
+
+tasks.test { useJUnitPlatform() }

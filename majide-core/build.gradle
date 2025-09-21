@@ -1,0 +1,34 @@
+// majide-core/build.gradle
+plugins {
+    id 'java-library'
+}
+
+group = 'io.majide'               // 보통 루트에서 통일; 모듈명은 artifactId로 구분
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21) // Temurin 21 권장
+    }
+}
+
+// 라이브러리 최소주의: 코어는 거의 무의존
+dependencies {
+    compileOnly 'org.slf4j:slf4j-api:2.0.16'
+
+    // (선택) 코어에서 크론 계산도 담당한다면
+    // api 'com.cronutils:cron-utils:9.2.1'   // 외부에 타입 노출되면 api
+    implementation 'com.cronutils:cron-utils:9.2.1' // 내부에서만 쓰면 implementation
+
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // 라이브러리 호환 타깃 정하고 싶으면:
+    // options.release = 17
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'net.majide'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+dependencies {
+    // majide integration (여기에 repos/tx/scheduler wiring이 있음)
+    api project(':majide-integration-spring')
+
+    // Spring Boot Auto-Configuration
+    implementation "org.springframework.boot:spring-boot-autoconfigure:3.3.3"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:3.3.3"
+
+    // 스키마 등록 시 MERGE 등을 위해 JdbcTemplate 활용
+    implementation "org.springframework:spring-jdbc:6.1.12"
+
+    // (선택) 로그 API
+    compileOnly "org.slf4j:slf4j-api:2.0.16"
+
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+tasks.test { useJUnitPlatform() }

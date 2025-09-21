@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'net.majide'
+version = '0.0.1-SNAPSHOT'
+
+dependencies {
+    api project(':majide-core')            // 코어 SPI/서비스
+    implementation project(':majide-adapter-jdbc') // JDBC 구현(빈으로 등록)
+
+    // Spring (컨텍스트/트랜잭션/스케줄링)
+    implementation 'org.springframework:spring-context:6.1.12'
+    implementation 'org.springframework:spring-tx:6.1.12'
+
+    implementation "org.springframework:spring-jdbc:6.1.12"
+    implementation 'org.springframework:spring-beans:6.1.12'
+    implementation 'com.cronutils:cron-utils:9.2.1'
+
+    // 테스트
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test { useJUnitPlatform() }

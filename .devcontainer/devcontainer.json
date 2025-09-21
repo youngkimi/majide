@@ -1,0 +1,49 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+	"name": "Java",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "none",
+			"installMaven": "false",
+			"installGradle": "true"
+		}
+	},
+	"customizations": {
+    "vscode": {
+		"extensions": [
+        "vscjava.vscode-java-pack"      // Red Hat Java 등 한 번에
+		],
+		"settings": {
+        // 저장 시 자동 import 정리(추가/정렬/미사용 제거)
+        "editor.codeActionsOnSave": { "source.organizeImports": true },
+
+        // import 순서(원하면 수정)
+        "java.completion.importOrder": ["java", "javax", "com", "org", "#"],
+
+        // AWT/Swing 자동 제안도 필요하면 필터 비우기/수정
+        "java.completion.filteredTypes": [],
+
+        // 언어 서버가 사용할 JDK 경로(컨테이너가 설정한 JAVA_HOME 사용)
+        "java.jdt.ls.java.home": "${env:JAVA_HOME}"
+        // (Gradle도 컨테이너 JDK 쓰게 하려면)
+        // "java.import.gradle.java.home": "${env:JAVA_HOME}"
+		}
+	}
+}
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

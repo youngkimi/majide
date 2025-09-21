@@ -1,0 +1,25 @@
+allprojects {
+    group = "net.majide"
+    version = "0.0.1-SNAPSHOT"
+}
+
+subprojects {
+    apply plugin: "java"
+
+    java {
+        toolchain { languageVersion = JavaLanguageVersion.of(21) }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+    }
+
+    dependencies {
+        testImplementation platform("org.junit:junit-bom:5.10.2")
+        testImplementation "org.junit.jupiter:junit-jupiter"
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
+}
